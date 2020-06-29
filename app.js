@@ -25,11 +25,11 @@ app.post("/charge", (req, res) => {
         .create({
           name: req.body.name,
           email: req.body.email,
-          type: 'standard',
+          type: 'custom',
           country: 'US',
           source: req.body.stripeToken
         })
-        .then(customer =>
+        .then(account =>
           stripe.charges.create({
             amount: req.body.amount * 100,
             currency: "usd",
