@@ -1,6 +1,7 @@
 const stripe = Stripe('pk_test_cpavqkvHKukifq3zixaAncGf00w1wjeAsB'); // Your Publishable Key
 const elements = stripe.elements();
 
+/*
 // Create our card inputs
 var style = {
   base: {
@@ -10,7 +11,7 @@ var style = {
 
 const card = elements.create('card', { style });
 card.mount('#card-element');
-
+*/
 const form = document.querySelector('form');
 const errorEl = document.querySelector('#card-errors');
 
@@ -24,7 +25,7 @@ const stripeTokenHandler = token => {
 
   form.submit();
 }
-
+/*
 // Create token from card data
 form.addEventListener('submit', e => {
   e.preventDefault();
@@ -34,3 +35,4 @@ form.addEventListener('submit', e => {
     else stripeTokenHandler(res.token);
   })
 })
+*/
