@@ -21,21 +21,14 @@ app.get('/', (req, res) => {
 });
 app.post("/charge", (req, res) => {
     try {
-      stripe.accounts
-        .create({
-          name: req.body.name,
-          email: req.body.email,
-          type: 'custom',
-          country: 'US',
-          source: req.body.stripeToken
-        })
-        .then(account =>
-          stripe.charges.create({
-            amount: req.body.amount * 100,
-            currency: "usd",
-            customer: customer.id
-          })
-        )
+      stripe.accounts.create({
+    country: 'AU',
+    type: 'custom',
+    business_type: 'company',
+    // requested_capabilities: ['card_payments', 'transfers'],
+}).then(function (account) {
+    console.log(JSON.stringify(account, null, 2));
+})
         .then(() => res.render("completed.ejs"))
         .catch(err => console.log(err));
     } catch (err) {
