@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
   res.render('index');
   //res.send('An alligator approaches!');
 });
-app.post("/charge", (req, res) => {
+app.post("/api/stripe/account", (req, res) => {
     try {
       stripe.accounts
         .create({
@@ -29,13 +29,6 @@ app.post("/charge", (req, res) => {
           country: 'US',
           source: req.body.stripeToken
         })
-        .then(account =>
-          stripe.charges.create({
-            amount: req.body.amount * 100,
-            currency: "usd",
-            customer: customer.id
-          })
-        )
         .then(() => res.render("completed.ejs"))
         .catch(err => console.log(err));
     } catch (err) {
