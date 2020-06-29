@@ -19,17 +19,20 @@ app.get('/', (req, res) => {
   res.render('index');
   //res.send('An alligator approaches!');
 });
+
 app.post("/charge", (req, res) => {
     try {
       stripe.accounts.create({
-    country: 'AU',
-    type: 'custom',
-    business_type: 'company',
-    // requested_capabilities: ['card_payments', 'transfers'],
-}).then(function (account) {
-    console.log(JSON.stringify(account, null, 2));
-})
-        .then(() => res.render("completed.ejs"))
+		country: 'AU',
+		type: 'custom',
+		business_type: 'company',
+		// requested_capabilities: ['card_payments', 'transfers'],
+		})
+		.then(function (account) {
+			console.log(JSON.stringify(account, null, 2));
+		})
+
+        .then(() => res.render("completed.html"))
         .catch(err => console.log(err));
     } catch (err) {
       res.send(err);
