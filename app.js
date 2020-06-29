@@ -21,20 +21,22 @@ app.get('/', (req, res) => {
 });
 app.post("/charge", (req, res) => {
     try {
-      stripe.customers
+      stripe.accounts
         .create({
+          type: 'standard',
           name: req.body.name,
           email: req.body.email,
+          country: 'US',
           source: req.body.stripeToken
         })
-        .then(customer =>
+        .then(account =>
           stripe.charges.create({
             amount: req.body.amount * 100,
             currency: "usd",
             customer: customer.id
           })
         )
-        .then(() => res.render("completed.html"))
+        .then(() => res.render("completed.ejs"))
         .catch(err => console.log(err));
     } catch (err) {
       res.send(err);
