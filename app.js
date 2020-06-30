@@ -20,19 +20,21 @@ app.get('/', (req, res) => {
   //res.send('An alligator approaches!');
 });
 app.post("/createAccount", (req, res) => {
-    try {
-      stripe.accounts
-        .create({
-          email: 'test@gmail.com',
-          source: req.body.stripeToken,
-          type:'standard',
-          country:'US'
-        })
-        .then(() => res.render("completed.ejs"))
-        .catch(err => console.log(err));
-    } catch (err) {
-      res.send(err);
-    }
+   
+stripe.accounts.create(
+  {
+    type: 'custom',
+    country: 'US',
+    email: 'jenny.rosen@example.com',
+    requested_capabilities: [
+      'card_payments',
+      'transfers',
+    ],
+  },
+  function(err, account) {
+    // asynchronously called
+  }
+);
   });
 
 
