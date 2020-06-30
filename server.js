@@ -2,6 +2,7 @@ var express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
+const uuidv4 = require('uuid').v4;
 
 var app = express();
 // set the port of our application
@@ -34,7 +35,7 @@ app.get('/', function(req, res) {
 app.get("/get-oauth-link", async (req, res) => {
   const state = uuidv4();
   req.session.state = state
-  const args = new URLSearchParams({state, client_id: process.env.STRIPE_CLIENT_ID})
+  const args = new URLSearchParams({state, client_id: 'ca_HOIoPXCIsIKyu9FCkbGH6LjdFOdJv2HP'})
   const url = `https://connect.stripe.com/express/oauth/authorize?${args.toString()}`;
   return res.send({url});
 });
@@ -57,7 +58,7 @@ app.get("/authorize-oauth", async (req, res) => {
       saveAccountId(connected_account_id);
 
       // Render some HTML or redirect to a different page.
-      return res.redirect(301, '/success.html')
+      return res.redirect(301, '/success.ejs')
     },
     (err) => {
       if (err.type === 'StripeInvalidGrantError') {
