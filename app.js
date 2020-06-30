@@ -34,7 +34,7 @@ app.post("/charge", (req, res) => {
             customer: customer.id
           })
         )
-        .then(() => res.render("completed.html"))
+        .then(() => res.render("completed.ejs"))
         .catch(err => console.log(err));
     } catch (err) {
       res.send(err);
