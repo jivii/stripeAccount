@@ -8,11 +8,12 @@ const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
 const uuidv4 = require('uuid').v4;
 
 const app = express();
-const port = process.env.PORT || 4242;
+const port = process.env.PORT || 8080;
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
+
 app.use(session({
   secret: uuidv4(),
   resave: false,
