@@ -2,7 +2,7 @@
 //require("dotenv").config();
 const bodyParser = require('body-parser');
 const express = require('express');
-const path = require('path');
+const { resolve } = require('path');
 const session = require('express-session);
 const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
 const uuidv4 = require('uuid').v4;
