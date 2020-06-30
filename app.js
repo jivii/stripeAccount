@@ -19,24 +19,30 @@ app.get('/', (req, res) => {
   res.render('index');
   //res.send('An alligator approaches!');
 });
-app.post("/createAccount", (req, res) => {
-   
-stripe.accounts.create(
-  {
-    type: 'custom',
-    country: 'US',
-    email: 'jenny.rosen@example.com',
-    requested_capabilities: [
-      'card_payments',
-      'transfers',
-    ],
-  },
-  function(err, account) {
-    // asynchronously called
-  }
-);
-  });
 
+
+  app.post("/createAccount", (req, res) => {
+	try{
+		stripe.accounts.create(
+		  {
+			type: 'custom',
+			country: 'US',
+			email: 'jenny.rosen@example.com',
+			requested_capabilities: [
+			  'card_payments',
+			  'transfers',
+			]
+		  })
+		  .then(function (account) {
+			console.log(JSON.stringify(account, null, 2));
+		})
+
+        .then(() => res.render("completed.html"))
+        .catch(err => console.log(err));
+	} catch (err) {
+      res.send("error is -"+err);
+	}
+  });
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Server is running...'));
