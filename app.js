@@ -10,7 +10,7 @@ const uuidv4 = require('uuid').v4;
 const app = express();
 const port = process.env.PORT || 4242;
 
-app.use(express.static(process.env.STATIC_DIR));
+app.use(express.static(__dirname + '/public'));
 app.use(session({
   secret: uuidv4(),
   resave: false,
