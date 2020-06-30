@@ -19,14 +19,13 @@ app.get('/', (req, res) => {
   res.render('index');
   //res.send('An alligator approaches!');
 });
-app.post("/charge", (req, res) => {
+app.post("/createAccount", (req, res) => {
     try {
       stripe.accounts
         .create({
-          name: req.body.name,
-          email: req.body.email,
+          email: 'test@gmail.com',
           source: req.body.stripeToken,
-          type:'custom',
+          type:'standard',
           country:'US'
         })
         .then(() => res.render("completed.ejs"))
