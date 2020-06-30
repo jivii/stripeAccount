@@ -4,7 +4,7 @@ const bodyParser = require("body-parser");
 const express = require("express");
 const { resolve } = require("path");
 const session = require("express-session");
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
 const uuidv4 = require('uuid').v4;
 
 const app = express();
@@ -26,9 +26,12 @@ app.use((req, res, next) => {
   }
 });
 
-app.get("/", (req, res) => {
-  const path = resolve(process.env.STATIC_DIR + "/index.html");
-  res.sendFile(path);
+// set the home page route
+app.get('/', function(req, res) {
+
+	// ejs render automatically looks in the views folder
+	res.render('index');
+	//res.send('<h1>Hello world</h1>');
 });
 
 app.get("/get-oauth-link", async (req, res) => {
