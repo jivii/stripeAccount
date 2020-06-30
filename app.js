@@ -19,12 +19,10 @@ app.get('/', (req, res) => {
   res.render('index');
   //res.send('An alligator approaches!');
 });
-
-
+  
   app.post("/createAccount", (req, res) => {
-	try{
-		stripe.accounts.create(
-		  {
+   
+		stripe.accounts.create({
 			type: 'custom',
 			country: 'US',
 			email: 'jenny.rosen@example.com',
@@ -32,17 +30,14 @@ app.get('/', (req, res) => {
 			  'card_payments',
 			  'transfers',
 			]
-		  })
-		  .then(function (account) {
-			console.log(JSON.stringify(account, null, 2));
-		})
+		  }).then(function (account) {
+					console.log(JSON.stringify(account, null, 2));
+				})
 
-        .then(() => res.render("completed.html"))
-        .catch(err => console.log(err));
-	} catch (err) {
-      res.send("error is -"+err);
-	}
+				.then(() => res.render("completed.html"))
+				.catch(err => console.log(err));
   });
+
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log('Server is running...'));
