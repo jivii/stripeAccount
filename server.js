@@ -1,11 +1,11 @@
 // Replace if using a different env file or config
-require("dotenv").config();
+//require("dotenv").config();
 const bodyParser = require("body-parser");
 const express = require("express");
 const { resolve } = require("path");
 const session = require("express-session");
 const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
-const uuidv4 = require('uuid').v4;
+//const uuidv4 = require('uuid').v4;
 
 const app = express();
 const port = process.env.PORT || 4242;
