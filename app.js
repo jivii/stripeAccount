@@ -1,19 +1,21 @@
-var express = require('express');
-const bodyParser = require('body-parser');
-const path = require('path');
+// Replace if using a different env file or config
+require("dotenv").config();
+const bodyParser = require("body-parser");
+const express = require("express");
+const { resolve } = require("path");
+const session = require("express-session");
 const stripe = require('stripe')('sk_test_4UNeAg7ULlqyKdIUjHj0hx8G002Zx3RDDz');
 const uuidv4 = require('uuid').v4;
 
-var app = express();
-// set the port of our application
-// process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
+const app = express();
+const port = process.env.PORT || 4242;
 
-// set the view engine to ejs
-app.set('view engine', 'ejs');
-
-// make express look in the public directory for assets (css/js/img)
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(process.env.STATIC_DIR));
+app.use(session({
+  secret: uuidv4(),
+  resave: false,
+  saveUninitialized: true,
+}))
 
 // Use JSON parser for all non-webhook routes
 app.use((req, res, next) => {
@@ -24,12 +26,9 @@ app.use((req, res, next) => {
   }
 });
 
-// set the home page route
-app.get('/', function(req, res) {
-
-	// ejs render automatically looks in the views folder
-	res.render('index');
-	//res.send('<h1>Hello world</h1>');
+app.get("/", (req, res) => {
+  const path = resolve(process.env.STATIC_DIR + "/index.ejs");
+  res.sendFile(path);
 });
 
 app.get("/get-oauth-link", async (req, res) => {
