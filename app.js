@@ -29,13 +29,6 @@ app.post("/charge", (req, res) => {
           type:'custom',
           country:'US'
         })
-        .then(account =>
-          stripe.charges.create({
-            amount: req.body.amount * 100,
-            currency: "usd",
-            account: account.id
-          })
-        )
         .then(() => res.render("completed.ejs"))
         .catch(err => console.log(err));
     } catch (err) {
