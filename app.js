@@ -21,17 +21,19 @@ app.get('/', (req, res) => {
 });
 app.post("/charge", (req, res) => {
     try {
-      stripe.customers
+      stripe.accounts
         .create({
           name: req.body.name,
           email: req.body.email,
-          source: req.body.stripeToken
+          source: req.body.stripeToken,
+          type:'custom',
+          country:'US'
         })
-        .then(customer =>
+        .then(account =>
           stripe.charges.create({
             amount: req.body.amount * 100,
             currency: "usd",
-            customer: customer.id
+            account: account.id
           })
         )
         .then(() => res.render("completed.ejs"))
