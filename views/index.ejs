@@ -830,33 +830,12 @@ pre {
 
     </style>
     <script>
-    var elmButton = document.querySelector("#submit");
-
+    var button = document.querySelector("#submit");
+    button.addEventListener("click", function(){
+    alert('something else');
+    });
     
-      elmButton.addEventListener(
-        "click",
-        e => {
-          alert("somthing");
-          elmButton.setAttribute("disabled", "disabled");
-
-          fetch("/get-oauth-link", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json"
-            }
-          })
-            .then(response => response.json())
-            .then(data => {
-              if (data.url) {
-                window.location = data.url;
-              } else {
-                elmButton.removeAttribute("disabled");
-                elmButton.textContent = "<Something went wrong>";
-                console.log("data", data);
-              }
-            });
-        }
-      );
+   
     
     </script>
   </head>
