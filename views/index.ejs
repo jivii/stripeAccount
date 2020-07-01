@@ -837,6 +837,18 @@ pre {
     
     function f(){
       alert("thing");
+      fetch("/get-oauth-link", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.url) {
+            window.location = data.url;
+          } 
+        });
     }
     
    
