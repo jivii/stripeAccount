@@ -7,7 +7,36 @@
     <base rel="stylesheet" type="text/css" href="css/normalize.css" />
     <base rel="stylesheet" type="text/css" href="css/global.css" />
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="/script.js" defer ></script>
+    <script>
+    let elmButton = document.querySelector("#submit");
+
+    if (elmButton) {
+      elmButton.addEventListener(
+        "click",
+        e => {
+          elmButton.setAttribute("disabled", "disabled");
+
+          fetch("/get-oauth-link", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json"
+            }
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.url) {
+                window.location = data.url;
+              } else {
+                elmButton.removeAttribute("disabled");
+                elmButton.textContent = "<Something went wrong>";
+                console.log("data", data);
+              }
+            });
+        },
+        false
+      );
+    }
+    </script>
   </head>
 
   <body>
